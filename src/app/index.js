@@ -6,7 +6,7 @@ export default class App extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {profile: {}}
+        this.state = {profile: null}
     }
 
     componentDidMount() {
@@ -24,7 +24,9 @@ export default class App extends Component {
 
         return (
             <div className={styles.container}>
-                <span>Hello {profile.login || 'unknown'}</span>
+                {profile &&
+                    <span>Hello {profile.login || 'unknown'}</span>
+                }
             </div>
         )
     }
