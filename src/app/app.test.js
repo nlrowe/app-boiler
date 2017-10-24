@@ -1,7 +1,6 @@
 import React from 'react'
-import {shallow, mount} from 'enzyme'
+import {shallow} from 'enzyme'
 import App from './'
-import gitHub from '../api/gitHub'
 
 jest.mock('../api/gitHub', () => (() => Promise.resolve({login: 'nlrowe'})))
 
@@ -27,7 +26,7 @@ describe('<App />', () => {
         })
 
         it('should render the greeting message in a span to unknown', () => {
-            app.setState({profile: {}});
+            app.setState({profile: {}})
             expect(app.find('span').text()).toEqual('Hello unknown')
         })
     })

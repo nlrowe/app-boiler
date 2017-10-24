@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -9,7 +10,7 @@ module.exports = {
         'react-hot-loader/patch',
         './src'],
     output: {
-        path: __dirname + '/public',
+        path: path.resolve(__dirname, '/public'),
         filename: 'bundle.js',
         publicPath: '/',
     },
@@ -42,7 +43,7 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: [
-                        ['es2015', {'modules': false}],
+                        ['es2015', {modules: false}],
                         'react',
                         'react-hmre',
                     ],
@@ -62,25 +63,25 @@ module.exports = {
                             modules: true,
                             importLoaders: 1,
                             localIdentName: '[name]-[local]__[hash:base64:5]',
-                        }
+                        },
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: function () {
-                                return [autoprefixer]
-                            },
+                            plugins: () => (
+                                [autoprefixer]
+                            ),
                             sourceMap: true,
                         },
                     },
                     'stylus-loader',
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     },
     devServer: {
         contentBase: './src',
         historyApiFallback: true,
     },
-    devtool: isProd ? '' : 'source-map'
+    devtool: isProd ? '' : 'source-map',
 }
